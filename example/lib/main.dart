@@ -20,6 +20,9 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     initPlatformState();
+    print("after initPlatformState");
+    PluginHttpServer.start();
+    print("after server start");
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.

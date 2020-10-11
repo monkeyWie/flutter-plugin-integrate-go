@@ -18,6 +18,9 @@ rootProject.allprojects {
     repositories {
         google()
         jcenter()
+        flatDir {
+            dirs project(':plugin_http_server').file('libs')
+        }
     }
 }
 
@@ -39,5 +42,6 @@ android {
 }
 
 dependencies {
+    implementation (name:'server', ext:'aar')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
