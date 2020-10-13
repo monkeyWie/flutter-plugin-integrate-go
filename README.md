@@ -9,7 +9,7 @@ flutter调用golang代码，利于gomobile bind能力。
 
 ```
 cd go
-gomobile bind -ldflags="-w -s" -o ../android/libs/server.aar -target=android ./server
+gomobile bind -ldflags="-w -s" -o ../android/libs/gopeed.aar -target=android -javapkg=com.gopeed.core ./bind/mobile
 ```
 
 - apk
@@ -17,3 +17,14 @@ gomobile bind -ldflags="-w -s" -o ../android/libs/server.aar -target=android ./s
 ```
 flutter build apk
 ```
+
+### windows
+- dll
+
+```
+cd go
+go build -ldflags="-w -s" -buildmode=c-shared -o ../windows/libs/gopeed.dll ./bind/desktop
+flutter pub run ffigen:setup -Ipath/to/llvm/include -Lpath/to/llvm/lib
+flutter pub run ffigen
+```
+

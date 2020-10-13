@@ -2,7 +2,7 @@ name: plugin_http_server
 description: A new flutter plugin project.
 version: 0.0.1
 author:
-homepage:
+homepage: 
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -15,6 +15,15 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  ffigen: "^1.0.5"
+
+ffigen:
+  name: gopeed
+  description: Bindings to gopeed.
+  output: 'lib/gopeed_bindings.dart'
+  headers:
+    entry-points:
+      - 'windows/libs/gopeed.h'
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
