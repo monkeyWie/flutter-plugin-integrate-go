@@ -145,25 +145,25 @@ class gopeed {
 
   _dart___threadhandle ___threadhandle;
 
-  ffi.Pointer<ffi.Int8> Start(
-    int p0,
+  void Start(
+    int port,
   ) {
     _Start ??= _dylib.lookupFunction<_c_Start, _dart_Start>('Start');
     return _Start(
-      p0,
+      port,
     );
   }
 
   _dart_Start _Start;
 
   int Add(
-    int p0,
-    int p1,
+    int n1,
+    int n2,
   ) {
     _Add ??= _dylib.lookupFunction<_c_Add, _dart_Add>('Add');
     return _Add(
-      p0,
-      p1,
+      n1,
+      n2,
     );
   }
 
@@ -368,20 +368,20 @@ typedef _c___threadhandle = ffi.Uint64 Function();
 
 typedef _dart___threadhandle = int Function();
 
-typedef _c_Start = ffi.Pointer<ffi.Int8> Function(
-  ffi.Int64 p0,
+typedef _c_Start = ffi.Void Function(
+  ffi.Int64 port,
 );
 
-typedef _dart_Start = ffi.Pointer<ffi.Int8> Function(
-  int p0,
+typedef _dart_Start = void Function(
+  int port,
 );
 
 typedef _c_Add = ffi.Int32 Function(
-  ffi.Int32 p0,
-  ffi.Int32 p1,
+  ffi.Int32 n1,
+  ffi.Int32 n2,
 );
 
 typedef _dart_Add = int Function(
-  int p0,
-  int p1,
+  int n1,
+  int n2,
 );

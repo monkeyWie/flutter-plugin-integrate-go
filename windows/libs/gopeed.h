@@ -68,10 +68,8 @@ typedef struct { void *data; GoInt len; GoInt cap; } GoSlice;
 extern "C" {
 #endif
 
-
-extern char* Start(GoInt p0);
-
-extern GoInt32 Add(GoInt32 p0, GoInt32 p1);
+extern void Start(GoInt port);
+extern GoInt32 Add(GoInt32 n1, GoInt32 n2);
 
 #ifdef __cplusplus
 }

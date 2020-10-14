@@ -21,7 +21,7 @@ class _MyAppState extends State<MyApp> {
     super.initState();
     initPlatformState();
     print("after initPlatformState");
-    PluginHttpServer.start();
+    PluginHttpServer.instance.start();
     print("after server start");
   }
 
@@ -30,7 +30,7 @@ class _MyAppState extends State<MyApp> {
     String platformVersion;
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
-      platformVersion = await PluginHttpServer.platformVersion;
+      platformVersion = "test";
     } on PlatformException {
       platformVersion = 'Failed to get platform version.';
     }
@@ -48,6 +48,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData.dark(),
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Plugin example app'),

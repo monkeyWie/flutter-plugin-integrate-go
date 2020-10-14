@@ -42,6 +42,6 @@ android {
 }
 
 dependencies {
-    implementation (name:'server', ext:'aar')
+    implementation (name:'gopeed', ext:'aar')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }

@@ -20,7 +20,7 @@ dev_dependencies:
 ffigen:
   name: gopeed
   description: Bindings to gopeed.
-  output: 'lib/gopeed_bindings.dart'
+  output: 'lib/ffi/gopeed_bindings.dart'
   headers:
     entry-points:
       - 'windows/libs/gopeed.h'

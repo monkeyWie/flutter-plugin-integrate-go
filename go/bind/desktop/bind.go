@@ -4,6 +4,7 @@ import "C"
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 )
 
@@ -12,12 +13,14 @@ func main() {
 }
 
 //export Start
-func Start(port int) *C.char {
-	http.HandleFunc("/ping", func(writer http.ResponseWriter, req *http.Request) {
-		writer.Write([]byte("pong"))
-	})
+func Start(port int) {
+	go func() {
+		http.HandleFunc("/ping", func(writer http.ResponseWriter, req *http.Request) {
+			writer.Write([]byte("pong"))
+		})
 
-	return C.CString(http.ListenAndServe(fmt.Sprintf(":%d", port), nil).Error())
+		log.Fatal((http.ListenAndServe(fmt.Sprintf(":%d", port), nil)))
+	}()
 }
 
 //export Add

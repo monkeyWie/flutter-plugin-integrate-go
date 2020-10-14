@@ -1,12 +1,12 @@
 package com.example.plugin_http_server
 
 import androidx.annotation.NonNull
+import com.gopeed.core.server.Server
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
-import server.Server
 
 /** PluginHttpServerPlugin */
 class PluginHttpServerPlugin : FlutterPlugin, MethodCallHandler {
@@ -17,20 +17,15 @@ class PluginHttpServerPlugin : FlutterPlugin, MethodCallHandler {
     private lateinit var channel: MethodChannel
 
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
-        channel = MethodChannel(flutterPluginBinding.binaryMessenger, "plugin_http_server")
+        channel = MethodChannel(flutterPluginBinding.binaryMessenger, "com.gopeed.core.server/http_server")
         channel.setMethodCallHandler(this)
     }
 
     override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
         when (call.method) {
-            "getPlatformVersion" -> {
-                result.success("Android ${android.os.Build.VERSION.RELEASE}")
-            }
             "start" -> {
                 val port = call.argument<Int>("port")
-                Thread {
-                    Server.start(port!!.toLong())
-                }.start()
+                Server.start(port!!.toLong())
                 result.success(null)
             }
             else -> {
