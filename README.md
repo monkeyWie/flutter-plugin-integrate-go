@@ -26,12 +26,6 @@ gomobile bind -ldflags="-w -s" -o ../android/libs/gopeed.aar -target=android -ja
 go build -ldflags="-w -s" -buildmode=c-shared -o ../windows/libs/gopeed.dll ./bind/desktop
 ```
 
-- apk
-
-```
-flutter build apk
-```
-
 ## dart binding 代码生成
 
 dart 官方提供了`ffigen`项目，可以根据`.h`头文件自动生成对应的绑定代码，此功能需要安装`LLVM`。
