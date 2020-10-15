@@ -155,19 +155,6 @@ class gopeed {
   }
 
   _dart_Start _Start;
-
-  int Add(
-    int n1,
-    int n2,
-  ) {
-    _Add ??= _dylib.lookupFunction<_c_Add, _dart_Add>('Add');
-    return _Add(
-      n1,
-      n2,
-    );
-  }
-
-  _dart_Add _Add;
 }
 
 class __crt_locale_data_public extends ffi.Struct {
@@ -369,19 +356,9 @@ typedef _c___threadhandle = ffi.Uint64 Function();
 typedef _dart___threadhandle = int Function();
 
 typedef _c_Start = ffi.Void Function(
-  ffi.Int64 port,
+  ffi.Int32 port,
 );
 
 typedef _dart_Start = void Function(
   int port,
-);
-
-typedef _c_Add = ffi.Int32 Function(
-  ffi.Int32 n1,
-  ffi.Int32 n2,
-);
-
-typedef _dart_Add = int Function(
-  int n1,
-  int n2,
 );

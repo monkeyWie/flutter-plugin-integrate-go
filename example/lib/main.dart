@@ -1,7 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'dart:async';
 
-import 'package:flutter/services.dart';
 import 'package:plugin_http_server/plugin_http_server.dart';
 
 void main() {
@@ -14,34 +15,25 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
+  String _flag = 'Loading';
 
   @override
   void initState() {
     super.initState();
-    initPlatformState();
-    print("after initPlatformState");
-    PluginHttpServer.instance.start();
-    print("after server start");
+    start();
   }
 
-  // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initPlatformState() async {
-    String platformVersion;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    try {
-      platformVersion = "test";
-    } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
+  Future<void> start() async {
+    if (Platform.isWindows) {
+      PluginHttpServer.init("data/flutter_assets/windows/libs/gopeed.dll");
+    } else {
+      PluginHttpServer.init(null);
     }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
-
+    print("after init");
+    PluginHttpServer.instance.start(2633);
+    print("after server start");
     setState(() {
-      _platformVersion = platformVersion;
+      _flag = "Running";
     });
   }
 
@@ -54,7 +46,7 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Plugin example app'),
         ),
         body: Center(
-          child: Text('Running on: $_platformVersion\n'),
+          child: Text('Server status: $_flag\n'),
         ),
       ),
     );

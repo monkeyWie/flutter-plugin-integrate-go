@@ -3,42 +3,58 @@ import 'dart:ffi';
 import 'dart:io';
 
 import 'package:flutter/services.dart';
-import 'package:plugin_http_server/ffi/gopeed_bindings.dart';
 
-class PluginHttpServer {
-  // 工厂模式
-  factory PluginHttpServer() => _getInstance();
+import 'ffi/gopeed_bindings.dart';
+import 'plugin_http_server_interface.dart';
 
-  static PluginHttpServer get instance => _getInstance();
+class PluginHttpServer implements PluginHttpServerInterface {
+  static PluginHttpServer get instance => _instance;
   static PluginHttpServer _instance;
 
-  MethodChannel _channel;
+  static PluginHttpServerInterface _provider;
+
+  /// 加载库
+  static init(String lib) {
+    if (_instance == null) {
+      _instance = PluginHttpServer();
+      if (Platform.isWindows) {
+        _provider = new _ffiProvider(lib);
+      } else {
+        _provider = new _channelProvider();
+      }
+    }
+  }
+
+  @override
+  Future<void> start(int port) async {
+    _provider.start(port);
+  }
+}
+
+class _ffiProvider implements PluginHttpServerInterface {
   gopeed _ffi;
 
-  PluginHttpServer._internal() {
-    // 初始化
-    if (Platform.isAndroid) {
-      _channel = MethodChannel('com.gopeed.core.server/http_server');
-    } else if (Platform.isWindows) {
-      _ffi = gopeed(DynamicLibrary.open("../windows/libs/gopeed.dll"));
-    }
+  _ffiProvider(String lib) {
+    _ffi = gopeed(DynamicLibrary.open(lib));
   }
 
-  static PluginHttpServer _getInstance() {
-    if (_instance == null) {
-      _instance = new PluginHttpServer._internal();
-    }
-    return _instance;
+  @override
+  Future<void> start(int port) async {
+    Future.sync(() => _ffi.Start(port));
+  }
+}
+
+class _channelProvider implements PluginHttpServerInterface {
+  MethodChannel _channel;
+
+  _channelProvider() {
+    _channel = MethodChannel('com.gopeed.core.server/http_server');
   }
 
-  Future<void> start() async {
-    const port = 2633;
-    if (Platform.isAndroid) {
-      await _channel.invokeMethod('start', <String, dynamic>{
-        'port': port,
-      });
-    } else {
-      Future.sync(() => _ffi.Start(port));
-    }
+  @override
+  Future<void> start(int port) async {
+    await _channel.invokeMethod('start', <String, dynamic>{
+      'port': port,
+    });
   }
 }

@@ -58,14 +58,15 @@ cd example
 
 ### 安卓
 
-- apk
-
 ```
 flutter build apk
 ```
 
-- windows
+### windows
 
 ```
+# 把动态库复制到应用目录中
+rm -rf ./windows/libs/gopeed.dll
+cp ../windows/libs/gopeed.dll ./windows/libs/gopeed.dll
 flutter build windows
 ```

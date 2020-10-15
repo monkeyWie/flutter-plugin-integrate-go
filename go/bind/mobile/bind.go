@@ -4,18 +4,19 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"sync"
 )
 
-func Start(port int) {
-	go func() {
-		http.HandleFunc("/ping", func(writer http.ResponseWriter, req *http.Request) {
-			writer.Write([]byte("pong"))
-		})
+var once sync.Once
 
-		log.Fatal((http.ListenAndServe(fmt.Sprintf(":%d", port), nil)))
-	}()
-}
+func Start(port int32) {
+	once.Do(func() {
+		go func() {
+			http.HandleFunc("/ping", func(writer http.ResponseWriter, req *http.Request) {
+				writer.Write([]byte("pong"))
+			})
 
-func Add(n1, n2 int32) int32 {
-	return n1 + n2
+			log.Fatal((http.ListenAndServe(fmt.Sprintf(":%d", port), nil)))
+		}()
+	})
 }

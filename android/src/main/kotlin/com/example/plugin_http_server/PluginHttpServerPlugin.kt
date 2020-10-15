@@ -25,7 +25,7 @@ class PluginHttpServerPlugin : FlutterPlugin, MethodCallHandler {
         when (call.method) {
             "start" -> {
                 val port = call.argument<Int>("port")
-                Server.start(port!!.toLong())
+                Server.start(port!!)
                 result.success(null)
             }
             else -> {
