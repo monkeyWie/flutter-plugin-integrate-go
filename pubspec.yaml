@@ -1,8 +1,8 @@
 name: plugin_http_server
-description: A new flutter plugin project.
+description: A flutter HTTP server plugin written by golang,support Android、iOS、windows、linux、mac.
 version: 0.0.1
-author:
-homepage: 
+author: monkeyWie
+homepage: https://github.com/monkeyWie/plugin_http_server
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -20,10 +20,10 @@ dev_dependencies:
 ffigen:
   name: gopeed
   description: Bindings to gopeed.
-  output: 'lib/ffi/gopeed_bindings.dart'
+  output: "lib/ffi/gopeed_bindings.dart"
   headers:
     entry-points:
-      - 'windows/libs/gopeed.h'
+      - "windows/libs/gopeed.h"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -39,7 +39,6 @@ flutter:
       android:
         package: com.example.plugin_http_server
         pluginClass: PluginHttpServerPlugin
-
   # To add assets to your plugin package, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
@@ -50,7 +49,6 @@ flutter:
   #
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
-
   # To add custom fonts to your plugin package, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
   # "family" key with the font family name, and a "fonts" key with a

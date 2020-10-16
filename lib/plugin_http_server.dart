@@ -4,8 +4,8 @@ import 'dart:io';
 
 import 'package:flutter/services.dart';
 
-import 'ffi/gopeed_bindings.dart';
-import 'plugin_http_server_interface.dart';
+import 'package:plugin_http_server/ffi/gopeed_bindings.dart';
+import 'package:plugin_http_server/plugin_http_server_interface.dart';
 
 class PluginHttpServer implements PluginHttpServerInterface {
   static PluginHttpServer get instance => _instance;
